@@ -5,7 +5,7 @@ specific.pl - This class inherits from "generic" and extends it with
 	      additional functionality
 	      (exemplifies inheritance)
 stack.pl    - A class that implements stacks
-	      (exemplifies ADTs via classes)
+	      (exemplifies data structures via classes)
 multiple_inh  includes several simple examples of multiple inheritance
 	      through interfaces
 geometry      includes several simple examples of O'Ciao objects which are
