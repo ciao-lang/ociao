@@ -10,7 +10,7 @@
 
 :- use_module(library(concurrency)).
 :- use_module(library(lists), [append/3]).
-:- use_module(library(strings)).
+:- use_module(library(strings), [write_string/2]).
 :- use_module(library(system)).
 
 :- data cmd_stream/1.
