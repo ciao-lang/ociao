@@ -1,4 +1,4 @@
-:- module(_, [], [lpdoclib(doccfg)]).
+:- module(_, [], [doccfg]).
 
 :- use_module(library(bundle/bundle_flags), [get_bundle_flag/2]).
 
