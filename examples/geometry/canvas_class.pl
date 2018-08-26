@@ -10,6 +10,8 @@
 
 :- use_module(library(concurrency)).
 :- use_module(library(lists), [append/3]).
+:- use_module(engine(stream_basic)).
+:- use_module(engine(io_basic)).
 :- use_module(library(stream_utils), [write_string/2]).
 :- use_module(library(system)).
 

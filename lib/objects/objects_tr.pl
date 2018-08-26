@@ -16,6 +16,7 @@
 
 %%------------------------------------------------------------------------
 
+:- use_module(engine(io_aux), [message/1]).
 :- use_module(library(compiler/c_itf_internal)).
 :- use_module(library(lists), [append/3]).
 :- use_module(library(class/class_itf)).
@@ -193,12 +194,12 @@ obj_clause_trans(clause('$static_instance_creation$',_),
 	end_of_messages(Module),
 	static_instance_definition(Module,InstCreation),
 	Body = catch(InstCreation,Error,
-	   inform_user(['Static instances declared on ',Module,
-                        ' could not be created due to exception: ',Error])),
+	   message(['Static instances declared on ',''(Module),
+                    ' could not be created due to exception: ',''(Error)])),
 	( debug ->
 	  (
-	      inform_user(['* instance creation:']),nl,
-	      inform_user([InstCreation]),nl,nl
+	      message(['* instance creation:']),nl,
+	      message([''(InstCreation)]),nl,nl
 	  ) ; true
 	),
 	true.
@@ -221,8 +222,8 @@ obj_clause_trans(clause(Head,Body),clause(Head,NewBody),Module) :-
 	!,
 	( debug ->
 	  (
-	      inform_user(['-- expanded body of ',Head,':']),nl,
-	      inform_user([NewBody]),nl,nl
+	      message(['-- expanded body of ',''(Head),':']),nl,
+	      message([''(NewBody)]),nl,nl
 	  ) ; true
 	),
 	true.
@@ -242,7 +243,7 @@ obj_clause_semantics(Head,Body,Module) :-
  	semantic_checking(Body,StartingProp,P),
 	( debug ->
 	  (
-	      inform_user(['-- Properties from ',Head,' : ',P])
+	      message(['-- Properties from ',''(Head),' : ',''(P)])
 	  ) ; true
 	),
 	true.
@@ -253,7 +254,7 @@ obj_clause_semantics(Head,Body,Module) :-
  	semantic_checking(Body,[],P),
 	( debug ->
 	  (
-	      inform_user(['-- Properties from ',Head,' : ',P])
+	      message(['-- Properties from ',''(Head),' : ',''(P)])
 	  ) ; true
 	),
 	true.
@@ -437,7 +438,7 @@ add_clause(Module,Head) :-
 		_,
 		'*object_expansion*',
 		0,0),
-	( debug -> (inform_user(['Added clause: ',Head])) ; true ),
+	( debug -> message(['Added clause: ', ''(Head)]) ; true ),
 	true.
 
 add_clause_of(Base, Head, Body, VarNames, Source, Line0, Line1) :-

@@ -18,6 +18,8 @@
 %% This file is used by objects_tr.pl in order to perform semantic analisys
 %%------------------------------------------------------------------------
 
+:- use_module(engine(io_aux), [message/2]).
+
 %%------------------------------------------------------------------------
 %%
 %% PERFORM CLAUSE BODY SEMANTIC CHECKING

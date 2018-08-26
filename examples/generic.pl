@@ -3,6 +3,8 @@
 %%----------------------------------------------%%
 :- class(generic).
 
+:- use_module(engine(io_basic)).
+
 % Public interface declaration:
 :- export([set/1,get/1,callme/0]).
 

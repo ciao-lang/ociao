@@ -23,6 +23,7 @@
 	    generate_oop_info/1
 	]).
 
+:- use_module(engine(io_aux), [message/1]).
 :- use_module(library(compiler/c_itf_internal)).
 :- use_module(library(pathnames), [path_basename/2]).
 
@@ -82,7 +83,7 @@ generate_oop_info(Module) :-
 generate_oop_info(Module) :-
 	assertz_fact(impl_interface(Module,Module)),
 	( debug -> 
-	  inform_user([Module,' ABSTRACT ITF ',Module])
+	  message([Module,' ABSTRACT ITF ',Module])
 	;
 	  true
 	),
@@ -95,7 +96,7 @@ generate_oop_info(Module) :-
 	\+ impl_interface(Module,Itf),
 	assertz_fact(impl_interface(Module,Itf)),
 	( debug -> 
-	  inform_user([Module,' ABSTRACT ITF ',Itf])
+	  message([Module,' ABSTRACT ITF ',Itf])
 	;
 	  true
 	),
@@ -108,7 +109,7 @@ generate_oop_info(Module) :-
 	\+ impl_interface(Module,Itf),
 	assertz_fact(impl_interface(Module,Itf)),
 	( debug -> 
-	  inform_user([Module,' ABSTRACT ITF ',Itf])
+	  message([Module,' ABSTRACT ITF ',Itf])
 	;
 	  true
 	),
@@ -117,7 +118,7 @@ generate_oop_info(Module) :-
 	\+ impl_interface(Module,OtherItf),
 	assertz_fact(impl_interface(Module,OtherItf)),
 	( debug -> 
-	  inform_user([Module,' ABSTRACT ITF ',OtherItf])
+	  message([Module,' ABSTRACT ITF ',OtherItf])
 	;
 	  true
 	),
@@ -130,7 +131,7 @@ generate_oop_info(Module) :-
 	c_itf_internal:decl(Base,attribute(F/A)),
 	assertz_fact(attribute_set(Module,Module,F,A)),
 	( debug -> 
-	  inform_user([Module,' ATTR SET ',Module,':',F,'/',A]) 
+	  message([Module,' ATTR SET ',Module,':',F,'/',A]) 
 	;
 	  true
 	),
@@ -141,7 +142,7 @@ generate_oop_info(Module) :-
 	attribute_set(Super,At,F,A),
 	assertz_fact(attribute_set(Module,At,F,A)),
 	( debug -> 
-	  inform_user([Module,' ATTR SET ',At,':',F,'/',A]) 
+	  message([Module,' ATTR SET ',At,':',F,'/',A]) 
 	;
 	  true
 	),
@@ -154,7 +155,7 @@ generate_oop_info(Module) :-
 	c_itf_internal:decl(Base,method(F/A)),
 	assertz_fact(implementation(Module,method,Module,F,A)),
 	( debug -> 
-	  inform_user([Module,' IMPL ',Module,':',F,'/',A,' (method)']) 
+	  message([Module,' IMPL ',Module,':',F,'/',A,' (method)']) 
 	;
 	  true
 	),
@@ -165,7 +166,7 @@ generate_oop_info(Module) :-
 	c_itf_internal:decl(Base,attribute(F/A)),
 	assertz_fact(implementation(Module,attribute,Module,F,A)),
 	( debug -> 
-	  inform_user([Module,' IMPL ',Module,':',F,'/',A,' (attribute)']) 
+	  message([Module,' IMPL ',Module,':',F,'/',A,' (attribute)']) 
 	;
 	  true
 	),
@@ -177,7 +178,7 @@ generate_oop_info(Module) :-
 	\+ implementation(Module,_,_,F,A),
 	assertz_fact(implementation(Module,Kind,At,F,A)),
 	( debug -> 
-	  inform_user([Module,' IMPL ',At,':',F,'/',A,' (',Kind,')']) 
+	  message([Module,' IMPL ',At,':',F,'/',A,' (',Kind,')']) 
 	;
 	  true
 	),
@@ -196,7 +197,7 @@ generate_oop_info(Module) :-
 	),
 	assertz_fact(inherited_pred(Module,Kind,Super,F,A)),
 	( debug -> 
-	  inform_user([Module,' INH ',Super,':',F,'/',A,' (',Kind,')']) 
+	  message([Module,' INH ',Super,':',F,'/',A,' (',Kind,')']) 
 	;
 	  true
 	),
@@ -208,7 +209,7 @@ generate_oop_info(Module) :-
 	\+ inherited_pred(Module,_,_,F,A),
 	assertz_fact(inherited_pred(Module,Kind,At,F,A)),
 	( debug -> 
-	  inform_user([Module,' INH ',At,':',F,'/',A,' (attribute)']) 
+	  message([Module,' INH ',At,':',F,'/',A,' (attribute)']) 
 	;
 	  true
 	),
@@ -232,7 +233,7 @@ generate_oop_info(Module) :-
 	\+ public_pred(Module,_,F,A),
 	assertz_fact(public_pred(Module,Kind,F,A)),
 	( debug -> 
-	  inform_user([Module,' PUBLIC ',F,'/',A,' (',Kind,')']) 
+	  message([Module,' PUBLIC ',F,'/',A,' (',Kind,')']) 
 	;
 	  true
 	),
@@ -256,7 +257,7 @@ generate_oop_info(Module) :-
 	\+ public_pred(Module,_,F,A),
 	assertz_fact(inheritable_pred(Module,Kind,F,A)),
 	( debug -> 
-	  inform_user([Module,' INHERITABLE ',F,'/',A,' (',Kind,')']) 
+	  message([Module,' INHERITABLE ',F,'/',A,' (',Kind,')']) 
 	;
 	  true
 	),

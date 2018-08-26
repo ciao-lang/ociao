@@ -1,6 +1,7 @@
 :- class(rogue_sorcerer).
 
 :- use_module(library(random)).
+:- use_module(engine(io_aux), [message/1]).
 
 :- implements(rogue).
 :- implements(sorcerer).
@@ -8,7 +9,7 @@
 steal(R) :-
 	random(0,100,R),
 	display(.).
-%	inform_user(['I have stolen ',R,' gold pieces']).
+%	message(['I have stolen ',R,' gold pieces']).
 
 :- data available_spell/1.
 
@@ -22,7 +23,7 @@ cast_spell(Spell) :-
 	retract_fact(available_spell(Spell)),
 	!,
 	display(.).
-%	inform_user(['Spell: ',Spell]).
+%	message(['Spell: ',Spell]).
 
 cast_spell(_) :-
-	inform_user(['Uhhh ?']).
+	message(['Uhhh ?']).

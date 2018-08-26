@@ -1,6 +1,7 @@
 
 :- module(nqueens,[main/1,all/1],[objects]).
 
+:- use_module(engine(io_basic)).
 :- use_module(write_board).
 
 :- use_class(queen).

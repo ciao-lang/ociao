@@ -4,6 +4,8 @@
 
 :- use_class(stack).
 
+:- use_module(engine(io_basic)).
+
 test :-
         X new stack,
         X:push(a),

@@ -1,6 +1,7 @@
 
 :- module(geometry_man,[main/0],[objects]).
 
+:- use_module(engine(io_basic)).
 :- use_module(library(concurrency)).
 
 :- use_class(ociao_examples(geometry/oval_class)).

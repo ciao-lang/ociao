@@ -13,6 +13,7 @@
 :- use_class(ociao_examples(geometry/box_class)).
 :- use_class(ociao_examples(geometry/rectangle_class)).
 
+:- use_module(engine(io_basic)).
 :- use_module(library(system)).
 
 %----------------------------------------------------------------------------

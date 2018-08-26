@@ -167,14 +167,14 @@ validate_fact(Class,ID,Fact,Module) :-
 	functor(Fact,F,A),
 	implementation(Class,attribute,_,F,A),
 	!,
-	message(error,Module,
+	message(Module,error,
 	 ['inaccessible attribute ',Fact,' at instance ',ID]),
 	fail. 
 
 validate_fact(_,ID,Fact,Module) :-
 	nonvar(Fact),
 	!,
-	message(error,Module,
+	message(Module,error,
 	 ['unknown attribute ',Fact,' at instance ',ID]),
 	fail. 
 

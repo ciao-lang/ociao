@@ -10,6 +10,8 @@
 :- inherit_class(ociao_examples(stack)).
 :- implements(ociao_examples(generic)).
 
+:- use_module(engine(io_basic)).
+
 callme :-
 	display('Stack implementation'),
 	nl.

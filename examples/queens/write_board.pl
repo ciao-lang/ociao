@@ -1,5 +1,7 @@
 :- module(write_board, [main/1, write_board/2], []).
 
+:- use_module(engine(io_basic)).
+
 % ----------------------------------------------------
 
 main([N]) :- try(N).

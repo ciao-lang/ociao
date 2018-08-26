@@ -1,5 +1,7 @@
 :- module(geometry2,[main/0],[objects]).
 
+:- use_module(engine(io_basic)).
+
 :- use_class(ociao_examples(geometry/oval_class)).
 :- use_class(ociao_examples(geometry/canvas_class)).
 :- use_class(ociao_examples(geometry/poly_class)).

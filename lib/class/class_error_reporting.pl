@@ -19,6 +19,9 @@
 	    message/3
 	]).
 
+:- use_module(engine(io_aux), [message/1, message/2]).
+:- use_module(engine(prolog_flags), [current_prolog_flag/2]).
+
 %%------------------------------------------------------------------------
 
 :- data message_of/3.          % Keep Tracking of error messages.

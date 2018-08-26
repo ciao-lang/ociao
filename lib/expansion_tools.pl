@@ -8,9 +8,9 @@
 
 :- module(expansion_tools,[],[assertions,hiord]).
 
-
 %%------------------------------------------------------------------------
 
+:- use_module(engine(io_aux), [message/1]).
 :- use_module(library(compiler/c_itf)).
 
 %%------------------------------------------------------------------------
@@ -151,14 +151,14 @@ body_expander(GoalExp,FactExp,SpecExp,Module,Body,NewBody) :-
 	!,
 	( GoalExp(Body,ExpBody,Module) -> 
 	  (
-%	  inform_user(['goal exp 1: ',Body,' : ',ExpBody]),
+%	  message(['goal exp 1: ',Body,' : ',ExpBody]),
 	  arg_expander(GoalExp,FactExp,SpecExp,Module,ExpBody,NewBody)
-%	  inform_user(['arg exp 1:  ',ExpBody,' : ',NewBody])
+%	  message(['arg exp 1:  ',ExpBody,' : ',NewBody])
 	  )
 	;
 	  (
 	  arg_expander(GoalExp,FactExp,SpecExp,Module,Body,NewBody)
-%	  inform_user(['arg exp 2:  ',Body,' : ',NewBody])
+%	  message(['arg exp 2:  ',Body,' : ',NewBody])
 	  )
 	).
 
@@ -166,7 +166,7 @@ body_expander(GoalExp,FactExp,SpecExp,Module,Body,NewBody) :-
 
 body_expander(GoalExp,FactExp,SpecExp,Module,Body,NewBody) :-
 	arg_expander(GoalExp,FactExp,SpecExp,Module,Body,NewBody).
-%	inform_user(['arg exp 3:  ',Body,' : ',NewBody]),
+%	message(['arg exp 3:  ',Body,' : ',NewBody]),
 %	true.
 
 %%------------------------------------------------------------------------
@@ -288,7 +288,7 @@ arg_exp_aux([spec|Nms],[Arg|Na],GExp,FExp,SExp,Mod,[ExpArg|Nea]) :-
 
 arg_exp_aux([pred(N)|Nms],[Arg|Na],GExp,FExp,SExp,Mod,[Arg|Nea]) :-
 	!,
-	inform_user(['PRED(',N,') : ',Arg]),
+	message(['PRED(',N,') : ',Arg]),
 	arg_exp_aux(Nms,Na,GExp,FExp,SExp,Mod,Nea).
 
 arg_exp_aux([_|Nms],[Arg|Na],GExp,FExp,SExp,Mod,[Arg|Nea]) :-
