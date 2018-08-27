@@ -22,7 +22,7 @@
 :- data doing_what/2.          % Currently doing DOING_MESSAGE.
 
 :- use_module(library(compiler/c_itf_internal), [module_error/0]).
-:- use_module(engine(io_aux), [message/1, message/2]).
+:- use_module(engine(messages_basic), [message/2]).
 :- use_module(engine(prolog_flags), [current_prolog_flag/2]).
 
 %%------------------------------------------------------------------------
@@ -47,13 +47,13 @@ end_of_messages(_).
 
 dump_messages(Module) :-
 	doing_what(Module,Doing),
-	message(['{'|Doing]),
+	message(user, ['{'|Doing]),
 	message_of(Module,Kind,Message),
-	io_aux:message(Kind,Message),
+	messages_basic:message(Kind,Message),
 	fail.
 
 dump_messages(_) :-
-	message(['}']).
+	message(user, ['}']).
 
 :- set_prolog_flag(multi_arity_warnings,off).
 

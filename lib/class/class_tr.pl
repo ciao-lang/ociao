@@ -21,7 +21,7 @@
 %%------------------------------------------------------------------------
 
 :- use_module(engine(io_basic)).
-:- use_module(engine(io_aux), [message/1]).
+:- use_module(engine(messages_basic), [message/2]).
 :- use_module(library(compiler/c_itf_internal)).
 :- use_module(library(lists), [member/2, append/3]).
 :- use_module(engine(internals), [module_concat/3]).
@@ -142,7 +142,7 @@ class_sentence_trans(end_of_file,FinalClauses,Module) :-
 	( debug_first_pass ->
 	  (
 	      nl,display('End of expansion clauses: '),nl,
-	      message([''(FinalClauses)]),nl
+	      message(user, [''(FinalClauses)]),nl
 	  ) ; true
 	),
 	true.
@@ -627,7 +627,7 @@ class_sentence_trans((Head),[],Mod) :-
 	atom_concat(Aux2,F,QfdF),
 	assertz_fact(initial_state(Mod,QfdF,Args)),
 	(debug_first_pass ->
-	 message([''(Mod),' INITIAL STATE : ',''(Head),' ',''(QfdF),' ',''(Args)])
+	 message(user, [''(Mod),' INITIAL STATE : ',''(Head),' ',''(QfdF),' ',''(Args)])
 	;
 	 true),
 	fail.
@@ -721,8 +721,8 @@ class_clause_trans(clause(Head,Body),clause(Head,NewBody),Module) :-
 	method_expansion(Body,Module,LastArg,NewBody),
 	( debug_second_pass ->
 	  (
-	      message(['-- expanded body of ',''(Head),':']),nl,
-	      message([''(NewBody)]),nl,nl
+	      message(user, ['-- expanded body of ',''(Head),':']),nl,
+	      message(user, [''(NewBody)]),nl,nl
 	  ) ; true
 	),
 	true.
@@ -1669,7 +1669,7 @@ add_clause(Module,(Head :- Body)) :-
 		'*class_expansion*',
 		0,0),
 	( debug_expansion_info -> 
-            message(['Added clause: ',''(Head),' :- ',''(Body)])
+            message(user, ['Added clause: ',''(Head),' :- ',''(Body)])
 	; true 
 	),
 	true.

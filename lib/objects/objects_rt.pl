@@ -415,11 +415,11 @@ instantiation(Obj,Class) :-
 %% RealF will be an atom containing ":classname::attributename"
 %%------------------------------------------------------------------------
 
-% :- use_module(engine(io_aux), [message/1]).
+% :- use_module(engine(messages_basic), [message/2]).
 
 state_creation(Obj,Class) :-
 	'class$attr_template'(Class,RealF,A,Kind),
-%	message(['ATTR ',''(RealF/A)]),
+%	message(user, ['ATTR ',''(RealF/A)]),
 	atom_concat(Obj,RealF,NewF),
 	'$define_predicate'(NewF/A,(interpreted)),
 	functor(InstPred,NewF,A),

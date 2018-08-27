@@ -10,7 +10,7 @@
 
 %%------------------------------------------------------------------------
 
-:- use_module(engine(io_aux), [message/1]).
+:- use_module(engine(messages_basic), [message/2]).
 :- use_module(library(compiler/c_itf)).
 
 %%------------------------------------------------------------------------
@@ -151,14 +151,14 @@ body_expander(GoalExp,FactExp,SpecExp,Module,Body,NewBody) :-
 	!,
 	( GoalExp(Body,ExpBody,Module) -> 
 	  (
-%	  message(['goal exp 1: ',Body,' : ',ExpBody]),
+%	  message(user, ['goal exp 1: ',Body,' : ',ExpBody]),
 	  arg_expander(GoalExp,FactExp,SpecExp,Module,ExpBody,NewBody)
-%	  message(['arg exp 1:  ',ExpBody,' : ',NewBody])
+%	  message(user, ['arg exp 1:  ',ExpBody,' : ',NewBody])
 	  )
 	;
 	  (
 	  arg_expander(GoalExp,FactExp,SpecExp,Module,Body,NewBody)
-%	  message(['arg exp 2:  ',Body,' : ',NewBody])
+%	  message(user, ['arg exp 2:  ',Body,' : ',NewBody])
 	  )
 	).
 
@@ -166,7 +166,7 @@ body_expander(GoalExp,FactExp,SpecExp,Module,Body,NewBody) :-
 
 body_expander(GoalExp,FactExp,SpecExp,Module,Body,NewBody) :-
 	arg_expander(GoalExp,FactExp,SpecExp,Module,Body,NewBody).
-%	message(['arg exp 3:  ',Body,' : ',NewBody]),
+%	message(user, ['arg exp 3:  ',Body,' : ',NewBody]),
 %	true.
 
 %%------------------------------------------------------------------------
@@ -288,7 +288,7 @@ arg_exp_aux([spec|Nms],[Arg|Na],GExp,FExp,SExp,Mod,[ExpArg|Nea]) :-
 
 arg_exp_aux([pred(N)|Nms],[Arg|Na],GExp,FExp,SExp,Mod,[Arg|Nea]) :-
 	!,
-	message(['PRED(',N,') : ',Arg]),
+	message(user, ['PRED(',N,') : ',Arg]),
 	arg_exp_aux(Nms,Na,GExp,FExp,SExp,Mod,Nea).
 
 arg_exp_aux([_|Nms],[Arg|Na],GExp,FExp,SExp,Mod,[Arg|Nea]) :-
