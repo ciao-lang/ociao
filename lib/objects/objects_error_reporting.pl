@@ -23,7 +23,7 @@
 
 :- use_module(library(compiler/c_itf_internal), [module_error/0]).
 :- use_module(engine(messages_basic), [message/2]).
-:- use_module(engine(prolog_flags), [current_prolog_flag/2]).
+:- use_module(engine(runtime_control), [current_prolog_flag/2]).
 
 %%------------------------------------------------------------------------
 

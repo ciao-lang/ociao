@@ -40,7 +40,7 @@
 
 :- use_module(engine(internals)).
 :- use_module(library(compiler), [use_module/1]).
-:- use_module(library(prolog_sys), [new_atom/1]).
+:- use_module(engine(runtime_control), [new_atom/1]).
 :- use_module(engine(hiord_rt), ['$meta_call'/1]).
 
 %%------------------------------------------------------------------------
