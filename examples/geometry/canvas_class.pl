@@ -8,6 +8,7 @@
 
 :- use_class(ociao_examples(geometry/shape_class)).
 
+:- use_module(engine(data_facts)).
 :- use_module(library(concurrency)).
 :- use_module(library(lists), [append/3]).
 :- use_module(engine(stream_basic)).

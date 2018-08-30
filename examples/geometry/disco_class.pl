@@ -10,6 +10,7 @@
 :- use_class(ociao_examples(geometry/shape_class)).
 :- use_class(ociao_examples(geometry/mobile)).
 
+:- use_module(engine(data_facts)).
 :- use_module(library(random)).
 :- use_module(library(system)).
 :- use_module(library(aggregates)).

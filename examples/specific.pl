@@ -19,6 +19,7 @@
 % undo/0 is a new functionality added.
 :- export([set/1,undo/0]).
 
+:- use_module(engine(data_facts)).
 :- use_module(engine(io_basic)).
 
 % Methods

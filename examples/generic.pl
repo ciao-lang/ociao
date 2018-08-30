@@ -3,6 +3,7 @@
 %%----------------------------------------------%%
 :- class(generic).
 
+:- use_module(engine(data_facts)).
 :- use_module(engine(io_basic)).
 
 % Public interface declaration:

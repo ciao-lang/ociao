@@ -1,9 +1,10 @@
-
 :- class(queen).
 
 :- use_package(objects).
 
 :- export([ attacks/2, next/0, solution/1, solve/0 ]).
+
+:- use_module(engine(data_facts)).
 
 % attributes
 :- data column/1.

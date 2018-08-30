@@ -5,6 +5,8 @@
 %% Class declaration: the current source defines a class.
 :- class(stack,[],[]).
 
+:- use_module(engine(data_facts)).
+
 % State declaration: storage/1 is an attribute.
 :- dynamic storage/1.
 
