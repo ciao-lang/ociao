@@ -13,8 +13,8 @@
 %%------------------------------------------------------------------------
 
 :- use_package(assertions).
-
 :- doc(nodoc,assertions).
+:- doc(nodoc,assertions_basic).
 
 :- use_module(library(objects/objects_rt), 
 	[
