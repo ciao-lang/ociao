@@ -31,14 +31,10 @@
 	interface_source/1,
 	method_spec/1,
 	virtual_method_spec/1
-        ],[]).
-
-:- use_package(assertions).
-:- use_package(basicmodes).
+        ],[assertions, basicmodes, datafacts]).
 
 %%------------------------------------------------------------------------
 
-:- use_module(engine(data_facts)).
 :- use_module(engine(internals)).
 :- use_module(library(compiler), [use_module/1]).
 :- use_module(engine(runtime_control), [new_atom/1]).

@@ -6,10 +6,10 @@
 
 :- class(oval_class).
 
+:- use_package(datafacts).
+
 :- inherit_class(ociao_examples(geometry/shape_class)).
 :- implements(ociao_examples(geometry/mobile)).
-
-:- use_module(engine(data_facts)).
 
 %%---------------------------------------------------------------------
 %% COORDINATES

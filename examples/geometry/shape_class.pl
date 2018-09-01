@@ -6,9 +6,10 @@
 
 :- class(shape_class,[],[objects]).
 
+:- use_package(datafacts).
+
 :- use_class(ociao_examples(geometry/canvas_class)).
 
-:- use_module(engine(data_facts)).
 
 %%---------------------------------------------------------------------
 %% COLOR 

@@ -1,6 +1,7 @@
 :- class(rogue_sorcerer).
 
-:- use_module(engine(data_facts)).
+:- use_package(datafacts).
+
 :- use_module(library(random)).
 :- use_module(engine(messages_basic), [message/2]).
 
