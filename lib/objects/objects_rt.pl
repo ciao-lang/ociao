@@ -66,8 +66,7 @@
 %% DOC HEADERS
 %%------------------------------------------------------------------------
 
-:- doc(title,
-	"Run time usage of objects").
+:- doc(title, "Run time usage of objects").
 
 :- doc(author,"Angel Fernandez Pineda").
 

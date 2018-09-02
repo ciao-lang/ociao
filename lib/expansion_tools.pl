@@ -15,9 +15,9 @@
 
 %%------------------------------------------------------------------------
 
-:- doc(title,     "Code translation utilities").
-:- doc(subtitle,  "A tool for code-expander modules").
-:- doc(author,    "Angel Fernandez Pineda").
+:- doc(title, "Code translation utilities").
+:- doc(subtitle, "A tool for code-expander modules").
+:- doc(author, "Angel Fernandez Pineda").
 
 :- doc(module,
 	"This library offers a general way to perform clause body 
