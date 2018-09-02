@@ -2,7 +2,7 @@
 
 :- use_module(library(bundle/bundle_flags), [get_bundle_flag/2]).
 
-:- include(ciao_docsrc(common/'LPDOCCOMMON')).
+:- include(core_docsrc(common/'LPDOCCOMMON')).
 
 output_name := 'ociao'.
 

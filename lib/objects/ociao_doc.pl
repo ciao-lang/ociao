@@ -21,7 +21,7 @@
 
 :- doc(author,"Angel Fernandez Pineda").
 
-:- doc(copyright,"@include{DocCopyright.lpdoc}").
+:- doc(copyright,"@include{FreeDocLicense.lpdoc}").
 
 :- doc(summary,
 	"O'Ciao is an object-oriented programming extension to Ciao

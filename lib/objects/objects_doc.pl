@@ -30,7 +30,7 @@
 
 :- doc(author,"Angel Fernandez Pineda").
 
-:- doc(copyright,"@include{DocCopyright.lpdoc}").
+:- doc(copyright,"@include{FreeDocLicense.lpdoc}").
 
 :- doc(usage,
 	"Any code which needs to use objects must include the

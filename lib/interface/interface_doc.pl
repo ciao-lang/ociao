@@ -21,7 +21,7 @@
 
 :- doc(author,"Angel Fernandez Pineda").
 
-:- doc(copyright,"@include{DocCopyright.lpdoc}").
+:- doc(copyright,"@include{FreeDocLicense.lpdoc}").
 
 :- doc(module,
 	 "O'CIAO abstract interfaces are simple modules which declares exported

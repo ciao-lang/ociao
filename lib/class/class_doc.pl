@@ -44,7 +44,7 @@
 
 :- doc(author,"Angel Fernandez Pineda").
 
-:- doc(copyright,"@include{DocCopyright.lpdoc}").
+:- doc(copyright,"@include{FreeDocLicense.lpdoc}").
 
 :- doc(summary,
 	"This section will explain how to declare a class/interface 
