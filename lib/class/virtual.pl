@@ -23,7 +23,7 @@
 :- multifile 'class$virtual'/6.
 :- multifile 'id$fromclass'/2.
 
-:- data 'id$fromclass'/2.
+:- data('id$fromclass'/2). % (just declaration, datafacts not needed in this module)
 
 %%------------------------------------------------------------------------
 
