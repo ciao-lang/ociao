@@ -88,9 +88,7 @@ obj_sentence_trans(end_of_file,Exp,Module) :-
 	  Init = [
 		     (:- initialization('$static_instance_creation$')),
 		     ('$static_instance_creation$'),
-		     (:- push_prolog_flag(unused_pred_warnings, no)),
 	             ('$force$rt$info$'(X) :- call(X)),
-		     (:- pop_prolog_flag(unused_pred_warnings)),
 		     (:- multifile 'class$call'/3)
 			     % Forces Ciao compiler to generate
                              % run-time info for this 
@@ -98,10 +96,8 @@ obj_sentence_trans(end_of_file,Exp,Module) :-
 	         ]
 	;
 	  Init = [
-		     (:- push_prolog_flag(unused_pred_warnings, no)),
 		     ('$static_instance_creation$'),
 		     ('$force$rt$info$'(X) :- call(X)),
-		     (:- pop_prolog_flag(unused_pred_warnings)),
 		     (:- multifile 'class$call'/3)
 		 ]
 	),
