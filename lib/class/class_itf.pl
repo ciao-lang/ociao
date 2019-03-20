@@ -24,7 +24,7 @@
 	]).
 
 :- use_module(engine(messages_basic), [message/2]).
-:- use_module(library(compiler/c_itf_internal)).
+:- use_module(library(compiler/c_itf)).
 :- use_module(library(pathnames), [path_basename/2]).
 
 %%------------------------------------------------------------------------
@@ -104,7 +104,7 @@ generate_oop_info(Module) :-
 
 generate_oop_info(Module) :-
 	defines_module(Base,Module),
-	c_itf_internal:decl(Base,implements(Itf)),
+	c_itf:decl(Base,implements(Itf)),
 	generate_oop_info(Itf),
 	\+ impl_interface(Module,Itf),
 	assertz_fact(impl_interface(Module,Itf)),
@@ -128,7 +128,7 @@ generate_oop_info(Module) :-
 
 generate_oop_info(Module) :-
 	defines_module(Base,Module),
-	c_itf_internal:decl(Base,attribute(F/A)),
+	c_itf:decl(Base,attribute(F/A)),
 	assertz_fact(attribute_set(Module,Module,F,A)),
 	( debug -> 
 	  message(user, [Module,' ATTR SET ',Module,':',F,'/',A]) 
@@ -152,7 +152,7 @@ generate_oop_info(Module) :-
 
 generate_oop_info(Module) :-
 	defines_module(Base,Module),
-	c_itf_internal:decl(Base,method(F/A)),
+	c_itf:decl(Base,method(F/A)),
 	assertz_fact(implementation(Module,method,Module,F,A)),
 	( debug -> 
 	  message(user, [Module,' IMPL ',Module,':',F,'/',A,' (method)']) 
@@ -163,7 +163,7 @@ generate_oop_info(Module) :-
 
 generate_oop_info(Module) :-
 	defines_module(Base,Module),
-	c_itf_internal:decl(Base,attribute(F/A)),
+	c_itf:decl(Base,attribute(F/A)),
 	assertz_fact(implementation(Module,attribute,Module,F,A)),
 	( debug -> 
 	  message(user, [Module,' IMPL ',Module,':',F,'/',A,' (attribute)']) 
@@ -189,11 +189,11 @@ generate_oop_info(Module) :-
 generate_oop_info(Module) :-
 	super(Module,Super),
 	defines_module(SuperBase,Super),
-	c_itf_internal:decl(SuperBase,inheritable(F/A)),
-	( c_itf_internal:decl(SuperBase,method(F/A)) -> 
+	c_itf:decl(SuperBase,inheritable(F/A)),
+	( c_itf:decl(SuperBase,method(F/A)) -> 
 	  Kind = method
 	; 
-	  ( c_itf_internal:decl(SuperBase,attribute(F/A)) -> Kind = attribute )
+	  ( c_itf:decl(SuperBase,attribute(F/A)) -> Kind = attribute )
 	),
 	assertz_fact(inherited_pred(Module,Kind,Super,F,A)),
 	( debug -> 
@@ -220,11 +220,11 @@ generate_oop_info(Module) :-
 generate_oop_info(Module) :-
 	impl_interface(Module,Itf),
 	defines_module(ItfBase,Itf),
-	c_itf_internal:decl(ItfBase,public(F/A)),
-	( c_itf_internal:decl(ItfBase,method(F/A)) ->
+	c_itf:decl(ItfBase,public(F/A)),
+	( c_itf:decl(ItfBase,method(F/A)) ->
 	  Kind = method
 	; 
-	  ( c_itf_internal:decl(ItfBase,attribute(F/A)) -> 
+	  ( c_itf:decl(ItfBase,attribute(F/A)) -> 
 	    Kind = attribute 
 	  ;
 	    inherited_pred(Module,Kind,_,F,A)
@@ -244,11 +244,11 @@ generate_oop_info(Module) :-
 generate_oop_info(Module) :-
 	impl_interface(Module,Itf),
 	defines_module(ItfBase,Itf),
-	c_itf_internal:decl(ItfBase,inheritable(F/A)),
-	( c_itf_internal:decl(ItfBase,method(F/A)) ->
+	c_itf:decl(ItfBase,inheritable(F/A)),
+	( c_itf:decl(ItfBase,method(F/A)) ->
 	  Kind = method
 	; 
-	  ( c_itf_internal:decl(ItfBase,attribute(F/A)) -> 
+	  ( c_itf:decl(ItfBase,attribute(F/A)) -> 
 	    Kind = attribute 
 	  ;
 	    inherited_pred(Module,Kind,_,F,A)
@@ -267,11 +267,11 @@ generate_oop_info(Module) :-
 
 generate_oop_info(Module) :-
 	defines_module(Base,Module),
-	c_itf_internal:decl(Base,virtual(F/A)),
-	( c_itf_internal:decl(Base,method(F/A)) ->
+	c_itf:decl(Base,virtual(F/A)),
+	( c_itf:decl(Base,method(F/A)) ->
 	  Kind = method
 	; 
-	  ( c_itf_internal:decl(Base,attribute(F/A)) -> 
+	  ( c_itf:decl(Base,attribute(F/A)) -> 
 	    Kind = attribute 
 	  ;
 	    inherited_pred(Module,Kind,_,F,A)
@@ -286,7 +286,7 @@ generate_oop_info(_).
 
 super(Module,Super) :-
 	defines_module(Base,Module),
-	c_itf_internal:decl(Base,super(Super)).
+	c_itf:decl(Base,super(Super)).
 
 %%------------------------------------------------------------------------
 %% Convert Class source file to Class name and vice-versa

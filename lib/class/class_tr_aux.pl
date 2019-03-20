@@ -19,7 +19,7 @@
 %%
 %% THE FOLLOWING LIBRARIES ARE ASSUMED TO BE IMPORTED
 %%
-%% c_itf_internal
+%% c_itf
 %% class_error_reporting
 %% class_itf
 %%

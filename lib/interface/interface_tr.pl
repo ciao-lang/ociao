@@ -15,7 +15,7 @@
 	    interface_clause_trans/3
 	]).
 
-:- use_module(library(compiler/c_itf_internal)).
+:- use_module(library(compiler/c_itf)).
 :- use_module(library(lists), [append/3]).
 :- use_module(library(class/class_error_reporting)).
 :- use_module(library(class/class_itf)).

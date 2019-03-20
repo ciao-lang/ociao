@@ -21,7 +21,7 @@
 :- data message_of/3.          % Keep Tracking of error messages.
 :- data doing_what/2.          % Currently doing DOING_MESSAGE.
 
-:- use_module(library(compiler/c_itf_internal), [module_error/0]).
+:- use_module(library(compiler/c_itf), [module_error/0]).
 :- use_module(engine(messages_basic), [message/2]).
 :- use_module(engine(runtime_control), [current_prolog_flag/2]).
 

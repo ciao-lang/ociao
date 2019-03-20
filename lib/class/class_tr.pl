@@ -22,7 +22,7 @@
 
 :- use_module(engine(io_basic)).
 :- use_module(engine(messages_basic), [message/2]).
-:- use_module(library(compiler/c_itf_internal)).
+:- use_module(library(compiler/c_itf)).
 :- use_module(library(lists), [member/2, append/3]).
 :- use_module(engine(internals), [module_concat/3]).
 :- use_module(library(class/class_itf)).
@@ -1411,7 +1411,7 @@ virtual_pred_template(Module,FromClass) :-
 
 virtual_pred_template(Module,FromClass) :-
 	defines_module(Base,FromClass),
-	c_itf_internal:decl(Base,super(Super)),
+	c_itf:decl(Base,super(Super)),
 	!,
 	virtual_pred_template(Module,Super).
 
@@ -1430,8 +1430,8 @@ virtual_pred_template(_,_).
 additional_itf_checking(Module) :-
 	impl_interface(Module,ITF),
 	defines_module(Base,ITF),
-        \+ c_itf_internal:includes(Base,library(interface)),
-        \+ c_itf_internal:includes(Base,library(class)),
+        \+ c_itf:includes(Base,library(interface)),
+        \+ c_itf:includes(Base,library(class)),
 	message(Module,error,
 	  ['implemented interface ',ITF,' is not a valid interface']),
 	retract_fact(implements(Module,ITF)),
@@ -1465,7 +1465,7 @@ additional_itf_checking(Module) :-
 additional_itf_checking(Module) :-
 	super(Module,Super),
 	defines_module(Base,Super),
-        \+ c_itf_internal:includes(Base,library(class)),
+        \+ c_itf:includes(Base,library(class)),
 	message(Module,error,['inherited ',Super,' must be a class']),
 	retract_fact(super(Module,_)),
 	fail.
@@ -1516,8 +1516,8 @@ additional_itf_checking(Module) :-
 	defines_module(Base,Module),
 	implementation(Module,_,Module,F,A),
 	inherited_pred(Module,_,_,F,A),
-	\+ c_itf_internal:decl(Base,inheritable(F/A)),
-	\+ c_itf_internal:decl(Base,public(F/A)),
+	\+ c_itf:decl(Base,inheritable(F/A)),
+	\+ c_itf:decl(Base,public(F/A)),
 	message(Module,error,
 	  ['local implementation of ',F,'/',A,
 	   ' hides inheritable definition',
@@ -1529,7 +1529,7 @@ additional_itf_checking(Module) :-
 	implementation(Module,_,Module,F,A),
 	inherited_pred(Module,_,_,F,A),
 	public_pred(Module,_,F,A),
-	\+ c_itf_internal:decl(Base,public(F/A)),
+	\+ c_itf:decl(Base,public(F/A)),
 	message(Module,error,
 	  ['local implementation of ',F,'/',A,' hides public definition',
            ' from ascendant class']),
@@ -1539,9 +1539,9 @@ additional_itf_checking(Module) :-
 
 additional_itf_checking(Module) :-
 	defines_module(Base,Module),
-	c_itf_internal:decl(Base,public(F/A)),
-	\+ c_itf_internal:decl(Base,method(F/A)),
-	\+ c_itf_internal:decl(Base,attribute(F/A)),
+	c_itf:decl(Base,public(F/A)),
+	\+ c_itf:decl(Base,method(F/A)),
+	\+ c_itf:decl(Base,attribute(F/A)),
 	\+ inherited_pred(Module,_,_,F,A),
 	message(Module,error,
 	  ['public predicate ',F,'/',A,' was not defined nor inherited']),
@@ -1562,7 +1562,7 @@ additional_itf_checking(_).
 
 get_inheritance_line(Class,[Class|N]) :-
 	defines_module(Base,Class),
-	c_itf_internal:decl(Base,super(Super)),
+	c_itf:decl(Base,super(Super)),
 	!,
 	get_inheritance_line(Super,N).
 
@@ -1682,7 +1682,7 @@ define_pred(Module, F, A) :-
 	assertz_fact(defines(Module, F, A)).
 
 add_clause_of(Base, Head, Body, VarNames, Source, Line0, Line1) :-
-	assertz_fact(c_itf_internal:clause_of(Base, Head, Body, VarNames, 
+	assertz_fact(c_itf:clause_of(Base, Head, Body, VarNames, 
                      Source, Line0, Line1)).
 
 %%------------------------------------------------------------------------
@@ -1715,7 +1715,7 @@ inherited_attribute_from(Module,From,F/A) :-
 
 attribute_from(Module,Module,Spec) :-
 	defines_module(Base,Module),
-	c_itf_internal:decl(Base,attribute(Spec)),
+	c_itf:decl(Base,attribute(Spec)),
 	!.
 
 attribute_from(Module,From,Spec) :-
@@ -1725,7 +1725,7 @@ attribute_from(Module,From,Spec) :-
 
 method_from(Module,Module,Spec) :-
 	defines_module(Base,Module),
-	c_itf_internal:decl(Base,method(Spec)),
+	c_itf:decl(Base,method(Spec)),
 	!.
 
 method_from(Module,From,Spec) :-

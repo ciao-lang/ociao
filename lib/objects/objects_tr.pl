@@ -17,7 +17,7 @@
 %%------------------------------------------------------------------------
 
 :- use_module(engine(messages_basic), [message/2]).
-:- use_module(library(compiler/c_itf_internal)).
+:- use_module(library(compiler/c_itf)).
 :- use_module(library(lists), [append/3]).
 :- use_module(library(class/class_itf)).
 :- use_module(library(objects/objects_error_reporting)).
@@ -228,8 +228,8 @@ obj_clause_trans(clause(Head,Body),clause(Head,NewBody),Module) :-
 
 obj_clause_semantics(Head,Body,Module) :-
 	analyze(Module),
-	c_itf_internal:defines_module(Base,Module),
-	c_itf_internal:includes(Base,library(class)),
+	c_itf:defines_module(Base,Module),
+	c_itf:includes(Base,library(class)),
 	functor(Head,F,A),
 	atom_concat('obj$',_,F),
 	arg(A,Head,LastArg),
@@ -312,8 +312,8 @@ generate_oop_info(_).
 additional_itf_checking(Module) :- 
 	used_class(Module,Class),
 	defines_module(ClassBase,Class),
-	( c_itf_internal:includes(ClassBase,library(class))     -> fail ; true ),
-	( c_itf_internal:includes(ClassBase,library(interface)) -> fail ; true ),
+	( c_itf:includes(ClassBase,library(class))     -> fail ; true ),
+	( c_itf:includes(ClassBase,library(interface)) -> fail ; true ),
 	message(Module,error,
 	['invalid use_class/1 declaration: ',Class,
          ' is not a class nor an interface']),
@@ -351,7 +351,7 @@ additional_itf_checking(Module) :-
 	functor(Cons,Class,Arity),
 	Arity > 0,
 	defines_module(ClassBase,Class),
-	\+ c_itf_internal:decl(ClassBase,method(Class/Arity)),
+	\+ c_itf:decl(ClassBase,method(Class/Arity)),
 	retract_fact(instance_of(Module,ID,Cons)),
 	message(Module,error,
 	  ['unknown constructor on ',ID,' instance declaration']),
@@ -361,8 +361,8 @@ additional_itf_checking(Module) :-
 	instance_of(Module,ID,Cons),
 	functor(Cons,Class,0),
 	defines_module(ClassBase,Class),
-	c_itf_internal:decl(ClassBase,method(Class/A)),
-	\+ c_itf_internal:decl(ClassBase,method(Class/0)),
+	c_itf:decl(ClassBase,method(Class/A)),
+	\+ c_itf:decl(ClassBase,method(Class/0)),
 	A > 0,
 	retract_fact(instance_of(Module,ID,Cons)),
 	message(Module, error,['constructor is needed on ',
@@ -438,6 +438,6 @@ add_clause(Module,Head) :-
 	true.
 
 add_clause_of(Base, Head, Body, VarNames, Source, Line0, Line1) :-
-	assertz_fact(c_itf_internal:clause_of(Base, Head, Body, VarNames, 
+	assertz_fact(c_itf:clause_of(Base, Head, Body, VarNames, 
                      Source, Line0, Line1)).
 */
