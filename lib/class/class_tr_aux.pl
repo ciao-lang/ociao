@@ -30,6 +30,7 @@
 %% 
 %%------------------------------------------------------------------------
 
+:- use_module(engine(hiord_rt_old)). % TODO: remove to use hiord instead of hiord_old
 :- use_module(library(expansion_tools)).
 
 method_expansion(Body,Module,InstVar,Exp) :-
