@@ -11,12 +11,12 @@ filepath := at_bundle(ociao, 'lib').
 filepath := at_bundle(ociao, 'examples').
 
 doc_structure := 
-	'objects/ociao_doc'-[
-	   'class/class_doc',
-	   'objects/objects_doc',
-	   'objects/objects_rt',
-	   'interface/interface_doc'
-        ].
+    'objects/ociao_doc'-[
+       'class/class_doc',
+       'objects/objects_doc',
+       'objects/objects_rt',
+       'interface/interface_doc'
+    ].
 
 doc_mainopts := no_biblio | no_bugs | no_patches.
 doc_compopts := no_biblio | no_bugs | no_patches.

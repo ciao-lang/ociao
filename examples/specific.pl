@@ -26,30 +26,30 @@
 % Methods
 
 set(Value) :-
-	inherited datum(OldValue),
-	!,
-	inherited set(Value),
-	asserta_fact(datum(OldValue)).
+    inherited datum(OldValue),
+    !,
+    inherited set(Value),
+    asserta_fact(datum(OldValue)).
 set(Value) :-
-	inherited set(Value).
+    inherited set(Value).
 
 undo :-
-        retract_fact(datum(Last)), !,
-        asserta_fact(inherited(datum(Last))).
+    retract_fact(datum(Last)), !,
+    asserta_fact(inherited(datum(Last))).
 undo :-
-	retractall_fact(inherited(datum(_))).
+    retractall_fact(inherited(datum(_))).
 
 % Constructor
 specific :-
-	generic,
-	retractall_fact(inherited(datum(_))),
-	display(' specific class constructor '),
-	nl.
+    generic,
+    retractall_fact(inherited(datum(_))),
+    display(' specific class constructor '),
+    nl.
 
 % Destructor
 destructor :-
-	display(' specific class destructor '),
-	nl.
+    display(' specific class destructor '),
+    nl.
 
 % Predicates
 

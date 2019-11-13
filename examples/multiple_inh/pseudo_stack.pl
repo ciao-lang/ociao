@@ -13,11 +13,11 @@
 :- use_module(engine(io_basic)).
 
 callme :-
-	display('Stack implementation'),
-	nl.
+    display('Stack implementation'),
+    nl.
 
 set(Item) :-
-	push(Item).
+    push(Item).
 
 get(Item) :-
-	top(Item).
+    top(Item).

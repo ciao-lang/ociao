@@ -7,5 +7,5 @@
 :- export([main/1]). 
 
 main(X) :-
-	retract_fact(mess(X)),
-	asserta_fact(mess(X)).
+    retract_fact(mess(X)),
+    asserta_fact(mess(X)).

@@ -10,11 +10,11 @@
 %%------------------------------------------------------------------------
 
 :- module(objects_error_reporting,
-	[
-	    start_of_messages/2,
-	    end_of_messages/1,
-	    message/3
-	]).
+    [
+        start_of_messages/2,
+        end_of_messages/1,
+        message/3
+    ]).
 
 %%------------------------------------------------------------------------
 
@@ -29,34 +29,34 @@
 
 
 start_of_messages(Module,DoingWhat) :-
-	retractall_fact(message_of(Module,_,_)),
-	retractall_fact(doing_what(Module,_)),
-	asserta_fact(doing_what(Module,DoingWhat)).
+    retractall_fact(message_of(Module,_,_)),
+    retractall_fact(doing_what(Module,_)),
+    asserta_fact(doing_what(Module,DoingWhat)).
 
 end_of_messages(Module) :-
-	current_prolog_flag(verbose_compilation,on),
-	!,
-	dump_messages(Module).
+    current_prolog_flag(verbose_compilation,on),
+    !,
+    dump_messages(Module).
 
 end_of_messages(Module) :-
-	( message_of(Module,error,_) ; message_of(Module,warning,_) ),
-	!,
-	dump_messages(Module).
+    ( message_of(Module,error,_) ; message_of(Module,warning,_) ),
+    !,
+    dump_messages(Module).
 
 end_of_messages(_).
 
 dump_messages(Module) :-
-	doing_what(Module,Doing),
-	message(user, ['{'|Doing]),
-	message_of(Module,Kind,Message),
-	messages_basic:message(Kind,Message),
-	fail.
+    doing_what(Module,Doing),
+    message(user, ['{'|Doing]),
+    message_of(Module,Kind,Message),
+    messages_basic:message(Kind,Message),
+    fail.
 
 dump_messages(_) :-
-	message(user, ['}']).
+    message(user, ['}']).
 
 :- set_prolog_flag(multi_arity_warnings,off).
 
 message(Module,Kind,Message) :-
-	assertz_fact(message_of(Module,Kind,Message)),
-	(Kind = error -> set_fact(module_error) ; true ).
+    assertz_fact(message_of(Module,Kind,Message)),
+    (Kind = error -> set_fact(module_error) ; true ).

@@ -6,7 +6,7 @@
 :- export([ attacks/2, next/0, solution/1, solve/0 ]).
 
 nulqueen:- % just to avoid the compile-time error
-	queen(0,0,none).
+    queen(0,0,none).
 
 solve.
 

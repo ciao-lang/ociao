@@ -16,7 +16,7 @@
 
 
 :- doc(appendix,
-	"
+    "
 
  This describes the errors reported when declaring a class or an
  interface. The first section will explain compile-time errors, this is,
@@ -105,7 +105,7 @@
        multifile. Any constructor must allways be a method.
 
  @item @bf{ERROR : multifile declaration of @em{F/A} ignored: it
-           was assumed to be a method.}
+       was assumed to be a method.}
 
        You put some clauses of @em{F/A} before the corresponding  
        multifile/1 declaration. For example:
@@ -149,7 +149,7 @@
        specification, of the form @em{Functor/Arity}.
 
  @item @bf{ERROR : clause of @em{F/A} ignored : only facts are allowed
-           as initial state.}
+       as initial state.}
 
        You declared @em{F/A} as an attribute, then you put some clauses
        of that predicate in the form @em{Head :- Body}. For example:
@@ -190,7 +190,7 @@
        Analogous to previous error.
 
  @item @bf{ERROR : virtual @em{F/A} must be a method or attribute 
-           defined at this class.}
+       defined at this class.}
       
        There is a virtual/1 declaration for @em{F/A}, but there is not
        any clause of that predicate nor a @decl{data/1} declaration. 
@@ -204,7 +204,7 @@
        given @em{Module} is not declared as class nor interface.
 
  @item @bf{ERROR : predicate @em{F/A} is required both as method
-           (at @em{Itf1} interface) and attribute (at @em{Itf2} interface).}
+       (at @em{Itf1} interface) and attribute (at @em{Itf2} interface).}
 
        There is no chance to give a correct implementation for @em{F/A} 
        predicate since @em{Itf1} and @em{Itf2} interfaces require different
@@ -217,7 +217,7 @@
        was not declared as a class.   
 
  @item @bf{ERROR : circular inheritance: @em{Source} is not a valid 
-           super-class.}
+       super-class.}
 
        Establishing an inheritance relationship with @em{Source} will cause
        current class to be present twice in the inheritance line. This is not
@@ -232,7 +232,7 @@
       even an inherited one.
 
  @item @bf{ERROR : local implementation of @em{F/A} hides inheritable/public 
-	   definition.}
+       definition.}
 
       There is an inherited definition for @em{F/A} which is been redefined
       at current class, but there is no valid inheritable/public 
@@ -260,10 +260,10 @@
 
        @begin{itemize}
 
-        @item The given predicate is defined at super-class, but you
-              forgot to mark it as inheritable (or public), at such class.
-        @item The given predicate was not defined (at super-class) 
-              as an attribute, just as a method.
+    @item The given predicate is defined at super-class, but you
+          forgot to mark it as inheritable (or public), at such class.
+    @item The given predicate was not defined (at super-class) 
+          as an attribute, just as a method.
        @end{itemize}
 
  @item @bf{ERROR : unknown inherited goal: @em{Goal}.}
@@ -295,7 +295,7 @@
       the involved predicate has not been inherited.
 
  @item @bf{WARNING : meta-predicate specification of @em{F/A}
-           ignored since this is an attribute.}
+       ignored since this is an attribute.}
      
       You declared @em{F/A} both as an attribute and a meta-predicate.
       For example:
@@ -328,7 +328,7 @@
    :- inherit_class(other_class).
 
    myclass :-
-           other_class.
+       other_class.
 @end{verbatim}
 
  @item @bf{WARNING : multifile @em{F/A} hides inherited predicate.}
@@ -371,7 +371,7 @@
 
  @tt{WARNING: (lns 28-30) [Item,Itema] - singleton variables in obj$remove/2}
 
-        
+    
        This error is relative to method remove/1.
 
  @item @decl{set_prolog_flag/1} declaration will be usefull when declaring
@@ -391,4 +391,4 @@
    :- set_prolog_flag(multi_arity_warnings,on).
 @end{verbatim}
  @end{itemize}
-        ").
+    ").

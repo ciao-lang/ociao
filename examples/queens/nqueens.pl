@@ -8,33 +8,33 @@
 :- use_class(nulqueen).
 
 main([N]):-
-	set_problem(N,Queen),
-	put_solution(N,Queen).
+    set_problem(N,Queen),
+    put_solution(N,Queen).
 
 all(N):-
-	set_problem(N,Queen),
-	backtrack(N,Queen).
+    set_problem(N,Queen),
+    backtrack(N,Queen).
 
 backtrack(N,Queen):-
-	put_solution(N,Queen),
-	Queen:next,
-	backtrack(N,Queen).
+    put_solution(N,Queen),
+    Queen:next,
+    backtrack(N,Queen).
 backtrack(_N,_Queen):-
-	display('There are no more solutions.'),
-	nl.
+    display('There are no more solutions.'),
+    nl.
 
 set_problem(N,LastQueen):-
-	Queen new nulqueen,
-	board(N,N,Queen,LastQueen),
-	LastQueen:solve.
+    Queen new nulqueen,
+    board(N,N,Queen,LastQueen),
+    LastQueen:solve.
 
 put_solution(N,Queen):-
-	Queen:solution(S),
-	display(S), nl,
-	write_board(S,N).
+    Queen:solution(S),
+    display(S), nl,
+    write_board(S,N).
 
 board(0,_N,Queen,Queen):- !.
 board(M,N,Queen,LastQueen):-
-	M1 is M-1,
-	NewQueen new queen(M,N,Queen),
-	board(M1,N,NewQueen,LastQueen).
+    M1 is M-1,
+    NewQueen new queen(M,N,Queen),
+    board(M1,N,NewQueen,LastQueen).

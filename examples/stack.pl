@@ -20,16 +20,16 @@
 % Methods
 
 push(Item) :-
-	nonvar(Item), 
-	asserta_fact(storage(Item)).
+    nonvar(Item), 
+    asserta_fact(storage(Item)).
 
 pop(Item) :-
-	var(Item),
-	retract_fact(storage(Item)).
+    var(Item),
+    retract_fact(storage(Item)).
 
 top(Top) :-
-	storage(Top), !.
+    storage(Top), !.
 
 is_empty :-
-	storage(_), !, fail.
+    storage(_), !, fail.
 is_empty.

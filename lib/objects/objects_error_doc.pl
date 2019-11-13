@@ -15,7 +15,7 @@
 
 
 :- doc(appendix,
-	"
+    "
  Compile-time errors are restricted to some
  local analysis. Since there is no type declaration in the Prolog
  language, there is no posibility to determine whenever a given
@@ -60,7 +60,7 @@
      first argument @em{ID}. Instance identifiers must be unique.
 
  @item @bf{ERROR : invalid use_class/1 declaration: @em{SourceFile} 
-           is not a class}
+       is not a class}
 
  Those are the causes for this error:
 
@@ -71,7 +71,7 @@
      @item The given @em{SourceFile} is not a Prolog source.
 
      @item The given @em{SourceFile} is a valid Prolog source, but it 
-           does not declare a class.
+       does not declare a class.
  
    @end{itemize}
 
@@ -99,7 +99,7 @@
      constructor.
 
  @item @bf{ERROR : static instance @em{ID} was derived from a different constructor 
-           at @em{AnotherModule}}
+       at @em{AnotherModule}}
 
      @em{ID} has been declared to be an static instance 
      both on @em{AnotherModule} and  current source, 
@@ -109,12 +109,12 @@
      @begin{itemize}
 
        @item Occasionally, there is another module using the same 
-             instance identifier and it was not noticed by you. 
-             Another different identifier may be used instead.
+         instance identifier and it was not noticed by you. 
+         Another different identifier may be used instead.
 
        @item It was you intention to use the same object as 
-             declared by the other module.
-             In this case, the same constructor must be used.
+         declared by the other module.
+         In this case, the same constructor must be used.
 
      @end{itemize}
 
@@ -136,18 +136,18 @@
    @begin{itemize}
      
      @item You forgot to include a @decl{use_class/1} declaration in
-           your code.
+       your code.
 
      @item There is a spelling mistake in the constructor.For example:
 
-           :- use_class(myclass).
+       :- use_class(myclass).
 
-            foo(X) :- X new mclass.
+        foo(X) :- X new mclass.
 
    @end{itemize}
 
  @item @bf{ERROR : can not create an instance from an interface: 
-           new(?,@em{Constructor}) }
+       new(?,@em{Constructor}) }
 
  Given @em{Constructor} references an interface rather than a class. Instances
  can not be derived from interface-expanded code.
@@ -221,7 +221,7 @@
  @begin{itemize}
 
  @item @bf{EXCEPTION : instantiation_error(
-           '1st argument must be free variable')}
+       '1st argument must be free variable')}
 
        Calling to new/1 requieres first argument to be a free variable.
        For example:
@@ -233,16 +233,16 @@
        You called new/2 using a free variable as second argument.
 
  @item @bf{EXCEPTION : instantiation_error(inaccesible_class(@em{Class}),
-          from(@em{Module})) }
+      from(@em{Module})) }
 
        @em{Module} tried to create an instance of @em{Class} by the ways of
        new/2, but there is no usage relationship between @em{Module} and
        @em{Class}.
 
  @item @bf{EXCEPTION : instantiation_error(invalid_constructor(
-           @em{Constructor})) }
+       @em{Constructor})) }
 
        @em{Constructor} was not defined by the corresponding class.
 
  @end{itemize}
-         ").
+     ").

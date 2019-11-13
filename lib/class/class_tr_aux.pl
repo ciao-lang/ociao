@@ -34,12 +34,12 @@
 :- use_module(library(expansion_tools)).
 
 method_expansion(Body,Module,InstVar,Exp) :-
-	body_expander(goal_expansion(InstVar),
-	              fact_expansion(InstVar),
-		      spec_expansion(InstVar),
-		      Module,
-		      Body,
-		      Exp).
+    body_expander(goal_expansion(InstVar),
+                  fact_expansion(InstVar),
+                  spec_expansion(InstVar),
+                  Module,
+                  Body,
+                  Exp).
 
 %%------------------------------------------------------------------------
 %%
@@ -49,147 +49,147 @@ method_expansion(Body,Module,InstVar,Exp) :-
 %%------------------------------------------------------------------------
 
 goal_expansion(Goal,InstanceID,Exp,Module):-
-	goal_expansion_(Goal,Exp,Module,InstanceID).
+    goal_expansion_(Goal,Exp,Module,InstanceID).
 
 %% unknown goal
 
 goal_expansion_(Var,class_rt(ID):Var,_,ID) :-
-	var(Var),
-	!.
+    var(Var),
+    !.
 
 %% Avoid invalid usage of method/attribute as module-qualified
 
 goal_expansion_(A_Module:Goal,Exp,Module,ID) :-
-	atom(A_Module),
-	A_Module = Module,
-	!,
-%	goal_expansion(Goal,Exp,Module,ID).
-	goal_expansion(Goal,ID,Exp,Module).
+    atom(A_Module),
+    A_Module = Module,
+    !,
+%       goal_expansion(Goal,Exp,Module,ID).
+    goal_expansion(Goal,ID,Exp,Module).
 
 %% Goal is not related to this class
 
 goal_expansion_(_:_,_,_,_) :-
-	!,
-	fail.
+    !,
+    fail.
 
 %% retrieving self instance ID 
 
 goal_expansion_(self(Var),_,Module,_) :-
-	nonvar(Var),
-	!,
-	message(Module,error,
-	 ['argument to self/1 must be a free variable']),
-	fail.
+    nonvar(Var),
+    !,
+    message(Module,error,
+     ['argument to self/1 must be a free variable']),
+    fail.
 
 goal_expansion_(self(Var),class_rt:self(InstVar,Var),_,InstVar) :-
-	var(Var),
-	!.
+    var(Var),
+    !.
 
 %% Goal belongs to assert/retract family and involves 
 %% virtual attribute.
 
 goal_expansion_(Goal,NewGoal,Module,InstVar) :-
-	fact2attr(Goal,Fact,_),
-	functor(Goal,AssrtPred,1),
-	\+ functor(Fact,inherited,_),
-	functor(Fact,F,A),
-	is_virtual(Module,F,A),
-	is_state(Module,F,A),
-	!,
-	functor(NewGoal,AssrtPred,1),
-	arg(1,NewGoal,virtual(InstVar):Fact).
+    fact2attr(Goal,Fact,_),
+    functor(Goal,AssrtPred,1),
+    \+ functor(Fact,inherited,_),
+    functor(Fact,F,A),
+    is_virtual(Module,F,A),
+    is_state(Module,F,A),
+    !,
+    functor(NewGoal,AssrtPred,1),
+    arg(1,NewGoal,virtual(InstVar):Fact).
 
 %% Goal belongs to assert/retract family and involves 
 %% explicitly inherited attr,e.g.: asserta_fact(inherited attr(88)).
 
 goal_expansion_(Goal,class_rt:NewGoal,Module,InstVar) :-
-	fact2attr(Goal,FactArg,NewGoal),
-	nonvar(FactArg),
-	FactArg = inherited(Fact),
-	functor(Fact,F,A),
-	inherited_attribute_from(Module,AtClass,F/A),
-	!,
-	Fact =.. [_|Args],
-	atom_concat([':',AtClass,'::',F],NewF),
-	NewFact =.. [NewF|Args],
-	arg(1,NewGoal,NewFact),
-	arg(2,NewGoal,InstVar).
+    fact2attr(Goal,FactArg,NewGoal),
+    nonvar(FactArg),
+    FactArg = inherited(Fact),
+    functor(Fact,F,A),
+    inherited_attribute_from(Module,AtClass,F/A),
+    !,
+    Fact =.. [_|Args],
+    atom_concat([':',AtClass,'::',F],NewF),
+    NewFact =.. [NewF|Args],
+    arg(1,NewGoal,NewFact),
+    arg(2,NewGoal,InstVar).
 
 goal_expansion_(Goal,fail,Module,_) :-
-	fact2attr(Goal,FactArg,_),
-	nonvar(FactArg),
-	FactArg = inherited(Fact),
-	functor(Fact,_,_),
-	!,
-	message(Module,error,['unknown inherited attribute in ',Goal]).
+    fact2attr(Goal,FactArg,_),
+    nonvar(FactArg),
+    FactArg = inherited(Fact),
+    functor(Fact,_,_),
+    !,
+    message(Module,error,['unknown inherited attribute in ',Goal]).
 
 %% Goal belongs to assert/retract family and involves some attribute,
 %% e.g.: retract(attr(_)).
 
 goal_expansion_(Goal,class_rt:NewGoal,Module,InstVar) :-
-	fact2attr(Goal,Fact,NewGoal),
-	nonvar(Fact),
-	functor(Fact,F,A),
-	attribute_from(Module,AtClass,F/A),
-	!,
-	Fact =.. [_|Args],
-	atom_concat([':',AtClass,'::',F],NewF),
-	NewFact =.. [NewF|Args],
-	arg(1,NewGoal,NewFact),
-	arg(2,NewGoal,InstVar). 
+    fact2attr(Goal,Fact,NewGoal),
+    nonvar(Fact),
+    functor(Fact,F,A),
+    attribute_from(Module,AtClass,F/A),
+    !,
+    Fact =.. [_|Args],
+    atom_concat([':',AtClass,'::',F],NewF),
+    NewFact =.. [NewF|Args],
+    arg(1,NewGoal,NewFact),
+    arg(2,NewGoal,InstVar). 
 
 %% Goal is a virtual method declared at this class,e.g.:
 %% :- virtual v/1.
 %% p(X) :- v(X).
 
 goal_expansion_(Goal,(virtual(InstVar):Goal),Module,InstVar) :-
-	functor(Goal,F,A),
-	is_virtual(Module,F,A),
-	!.
+    functor(Goal,F,A),
+    is_virtual(Module,F,A),
+    !.
 
 %% Goal is an explicitly inherited attribute,i.e: inherited attr(I)
 
 goal_expansion_(inherited(Goal),
-               class_rt:current_attr(InstFact,Inst),Module,Inst) :-
-	functor(Goal,F,A),
-	inherited_attribute_from(Module,AtClass,F/A),
-	!,
-	Goal =.. [_|Args],
-	atom_concat([':',AtClass,'::',F],InstF),
-	InstFact =.. [InstF|Args].
-	
+           class_rt:current_attr(InstFact,Inst),Module,Inst) :-
+    functor(Goal,F,A),
+    inherited_attribute_from(Module,AtClass,F/A),
+    !,
+    Goal =.. [_|Args],
+    atom_concat([':',AtClass,'::',F],InstF),
+    InstFact =.. [InstF|Args].
+    
 %% Goal is an explicitly inherited method, i.e: inherited method(K)
 
 goal_expansion_(inherited(Goal),AtClass:NewGoal,Module,InstVar) :-
-	functor(Goal,F,A),
-	inherited_method_from(Module,AtClass,F/A),
-	!,
-	method_head(Goal,NewGoal,InstVar).
+    functor(Goal,F,A),
+    inherited_method_from(Module,AtClass,F/A),
+    !,
+    method_head(Goal,NewGoal,InstVar).
 
 %% Invalid inherited goal
 
 goal_expansion_(inherited(Goal),_,Module,_) :-
-	!,
-	message(Module,error,['unknown inherited goal: ',Goal]),
-	fail.
+    !,
+    message(Module,error,['unknown inherited goal: ',Goal]),
+    fail.
 
 %% Goal is an attribute, e.g.: attr(I)
 
 goal_expansion_(Goal,class_rt:current_attr(InstFact,Inst),Module,Inst) :-
-	functor(Goal,F,A),
-	attribute_from(Module,AtClass,F/A),
-	!,
-	Goal =.. [_|Args],
-	atom_concat([':',AtClass,'::',F],InstF),
-	InstFact =.. [InstF|Args].
+    functor(Goal,F,A),
+    attribute_from(Module,AtClass,F/A),
+    !,
+    Goal =.. [_|Args],
+    atom_concat([':',AtClass,'::',F],InstF),
+    InstFact =.. [InstF|Args].
 
 %% Goal is a method, e.g.: mymethod(8,7)
 
 goal_expansion_(Goal,AtClass:NewGoal,Module,InstVar) :-
-	functor(Goal,F,A),
-	method_from(Module,AtClass,F/A),
-	!,
-	method_head(Goal,NewGoal,InstVar).
+    functor(Goal,F,A),
+    method_from(Module,AtClass,F/A),
+    !,
+    method_head(Goal,NewGoal,InstVar).
 
 %%------------------------------------------------------------------------
 %%
@@ -198,56 +198,56 @@ goal_expansion_(Goal,AtClass:NewGoal,Module,InstVar) :-
 %%------------------------------------------------------------------------
 
 fact_expansion(Fact,Inst,Exp,Module) :-
-	fact_expansion_(Fact,Exp,Module,Inst).
+    fact_expansion_(Fact,Exp,Module,Inst).
 
 %% Fact is unknown
 
 fact_expansion_(Fact,class_rt(Inst):Fact,_,Inst) :-
-	var(Fact),
-	!.
+    var(Fact),
+    !.
 
 %% Avoid invalid calls to class as a module.
 
 fact_expansion_(A_Module:Fact,Exp,Module,Inst) :-
-	atom(A_Module),
-	A_Module = Module,
-	!,
-%	fact_expansion(Fact,Exp,Module,Inst),
-	fact_expansion(Fact,Inst,Exp,Module).
+    atom(A_Module),
+    A_Module = Module,
+    !,
+%       fact_expansion(Fact,Exp,Module,Inst),
+    fact_expansion(Fact,Inst,Exp,Module).
 
 %% Fact is not related to current class.
 
 fact_expansion_(_:_,_,_,_) :-
-	!,
-	fail.
+    !,
+    fail.
 
 %% Correct usage of explicitly inherited attribute.
 
 fact_expansion_(inherited(Fact),class_rt(Inst):Fact,Module,Inst) :-
-	nonvar(Fact),
-	functor(Fact,F,A),
-	inherited_attribute_from(Module,_,F/A),
-	!.
+    nonvar(Fact),
+    functor(Fact,F,A),
+    inherited_attribute_from(Module,_,F/A),
+    !.
 
 %% Incorrect usage of attribute
 
 fact_expansion_(Fact,Fact,Module,_) :-
-	functor(Fact,F,A),
-	method_from(Module,_,F/A),
-	!,
-	message(Module,error,
-	 ['invalid argument: ', F,'/',A,' is not an attribute']).
+    functor(Fact,F,A),
+    method_from(Module,_,F/A),
+    !,
+    message(Module,error,
+     ['invalid argument: ', F,'/',A,' is not an attribute']).
 
 fact_expansion_(inherited(Fact),inherited(Fact),Module,_) :-
-	functor(Fact,F,A),
-	inherited_method_from(Module,_,F/A),
-	!,
-	message(Module,error,
-	 ['invalid argument: inherited ', F,'/',A,' is not an attribute']).
+    functor(Fact,F,A),
+    inherited_method_from(Module,_,F/A),
+    !,
+    message(Module,error,
+     ['invalid argument: inherited ', F,'/',A,' is not an attribute']).
 
 fact_expansion_(inherited(Fact),inherited(Fact),Module,_) :-
-	!,
-	message(Module,error,['unknown inherited fact: ',Fact]).
+    !,
+    message(Module,error,['unknown inherited fact: ',Fact]).
 
 %%------------------------------------------------------------------------
 %%
@@ -256,70 +256,70 @@ fact_expansion_(inherited(Fact),inherited(Fact),Module,_) :-
 %%------------------------------------------------------------------------
 
 spec_expansion(Spec,Inst,Exp,Module) :-
-	spec_expansion_(Spec,Exp,Module,Inst).
+    spec_expansion_(Spec,Exp,Module,Inst).
 
 %% spec is unknown
 
 spec_expansion_(Spec,class_rt(Inst):Spec,_,Inst) :-
-	var(Spec),
-	!.
+    var(Spec),
+    !.
 
 spec_expansion_(inherited(Spec),class_rt(Inst):inherited(Spec),_,Inst) :-
-	var(Spec),
-	!.
+    var(Spec),
+    !.
 
 
 spec_expansion_(F/A,class_rt(Inst):F/A,_,Inst) :-
-	(var(F) ; var(A)),
-	!.
+    (var(F) ; var(A)),
+    !.
 
 spec_expansion_(inherited(F/A),class_rt(Inst):inherited(F/A),_,Inst) :-
-	(var(F) ; var(A)),
-	!.
+    (var(F) ; var(A)),
+    !.
 
 %% explicitly inherited attribute spec.
 
 spec_expansion_(inherited(F/A),class_rt(Inst):F/A,Module,Inst) :-
-	atom(F),
-	integer(A),
-	A >= 0,
-	inherited_attribute_from(Module,_,F/A),
-	!.
+    atom(F),
+    integer(A),
+    A >= 0,
+    inherited_attribute_from(Module,_,F/A),
+    !.
 
 spec_expansion_(inherited(F/A),NewF/NewA,Module,_) :-
-	atom(F),
-	integer(A),
-	A >= 0,
-	inherited_method_from(Module,AtClass,F/A),
-	atom_concat(AtClass,':obj$',Aux),
-	atom_concat(Aux,F,NewF),
-	NewA is A+1,
-	!.
+    atom(F),
+    integer(A),
+    A >= 0,
+    inherited_method_from(Module,AtClass,F/A),
+    atom_concat(AtClass,':obj$',Aux),
+    atom_concat(Aux,F,NewF),
+    NewA is A+1,
+    !.
 
 spec_expansion_(inherited(Fact),inherited(Fact),Module,_) :-
-	!,
-	message(Module,error,['unknown inherited spec: ',Fact]).
+    !,
+    message(Module,error,['unknown inherited spec: ',Fact]).
 
 %% Spec is known to involve an attribute
 
 spec_expansion_(F/A,class_rt(Inst):inherited(F/A),Module,Inst) :-
-	atom(F),
-	integer(A),
-	A >= 0,
-	attribute_from(Module,_,F/A),
-	!.
+    atom(F),
+    integer(A),
+    A >= 0,
+    attribute_from(Module,_,F/A),
+    !.
 
 %% Spec is known to involve a method
 
 spec_expansion_(F/A,NewF/NewA,Module,_) :-
-	atom(F),
-	integer(A),
-	A >= 0,
-	method_from(Module,AtClass,F/A),
-	atom_concat(AtClass,':obj$',Aux),
-	atom_concat(Aux,F,NewF),
-	NewA is A+1,
-	!.
+    atom(F),
+    integer(A),
+    A >= 0,
+    method_from(Module,AtClass,F/A),
+    atom_concat(AtClass,':obj$',Aux),
+    atom_concat(Aux,F,NewF),
+    NewA is A+1,
+    !.
 
 %%------------------------------------------------------------------------
 %%

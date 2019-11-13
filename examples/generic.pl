@@ -23,30 +23,30 @@ datum(none).
 % Methods
 
 set(X) :-
-        type_check(X),
-        set_fact(datum(X)).
+    type_check(X),
+    set_fact(datum(X)).
 
 get(X) :-
-        datum(X).
+    datum(X).
 
 callme :-
-	a_virtual(IMPL),
-	display(IMPL),
-	display(' implementation of a_virtual/0 '),
-	nl.
+    a_virtual(IMPL),
+    display(IMPL),
+    display(' implementation of a_virtual/0 '),
+    nl.
 
 % Constructor: in this case, every time an instance
 % of this class is created, it will display a message.
 generic :-
-	display(' generic class constructor '),
-	nl.
+    display(' generic class constructor '),
+    nl.
 
 % Destructor: analogous to the previous constructor,
 % it will display a message every time an instance
 % of this class is eliminated.
 destructor :-
-	display(' generic class destructor '),
-	nl.
+    display(' generic class destructor '),
+    nl.
 
 % Predicates:
 % cannot be called as messages (X:method)
@@ -63,4 +63,4 @@ a_virtual(generic).
 :- virtual type_check/1.
 
 type_check(X) :-
-	nonvar(X).
+    nonvar(X).
