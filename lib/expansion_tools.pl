@@ -42,10 +42,10 @@
 
 :- prop expander_pred(Pred) # 
     "@var{Pred} is a user-defined predicate used to perform code 
-     translations. First argument will be binded to the corresponding
-     term to be translated. Second argument must be binded to the
-     corresponding translation. Third argument will be binded
-     to the current module were first argument appears.
+     translations. The first argument will be bound to the corresponding
+     term to be translated. The second argument must be bound to the
+     corresponding translation. The third argument will be bound
+     to the current module where the first argument appears.
      Additional arguments will be user-defined.
     ".
 
@@ -71,9 +71,9 @@ expander_pred(_).
 
 :- pred imports_meta_pred(Module,MetaSpec,AccessibleAt) :
     ( atm(Module), term(MetaSpec) ) #
-    "Tells whether @var{MetaSpec} meta-predicate specification is
+    "Tells whether the @var{MetaSpec} meta-predicate specification is
      accessible from @var{Module}. @var{AccessibleAt} will be 
-     binded to '-' whether meta-predicate is a builtin one. If not,
+     bound to '-' is the meta-predicate is a builtin. If not,
      it will be unified with the module which defines the meta-predicate.
     ".
 
@@ -115,16 +115,15 @@ lib2module(Lib,Mod) :-
 
 :- doc(body_expander/6,
     "This predicate is the main translation tool. It navigates through
-     a clause body, when a single 
-     @em{goal} appears, user-code is called
-     in order to perform a translation. Whether user-code fails to
-     translate the involved goal, it remains the same.
-     Regardless that goal is translated or not, an argument 
-     expansion will be performed over all goals if applicable
-     (see @pred{arg_expander/6} predicate).
+     a clause body, when a single @em{goal} appears, user code is
+     called in order to perform a translation. If the user code fails
+     to translate the involved goal, it remains the same.  Regardless
+     of whether the goal is translated or not, an argument expansion
+     will be performed over all goals if applicable (see the
+     @pred{arg_expander/6} predicate).
 
-     Variable (unknown at compile time) goals will also be 
-     attempt to translate.
+     Translation of variable (unknown at compile time) goals will also
+     be attempted.
     ").
 
 :- pred body_expander(GoalTrans, FactTrans, SpecTrans,
@@ -177,24 +176,20 @@ body_expander(GoalExp,FactExp,SpecExp,Module,Body,NewBody) :-
 
 
 :- doc(arg_expander/6,
-    "This predicate is an auxiliary translation tool, which is 
-     used by @pred{body_expander/6} predicate. 
-     It remains exported as a macro. 
-     The predicate navigates through the @em{meta-argument specification}
-     of a goal. Whether a @em{goal,fact or spec} argument appears,
-     user-code is called in order to perform a translation. 
-     Whether user-code fails to translate the involved argument, 
-     it remains the same.
-     Builtins as ','/2 or ';'/2 are treated 
-     as meta-predicates defining @em{goal} meta-arguments.
-     When a @em{goal} meta-argument is located, 
-     @pred{body_expander/6} will be called in order to navigate
-     through it. Notice that a @em{goal} meta-argument may be unified
-     with another goal defining another meta-argument, so 
-     navigation is required.
-     If arguments are not known to arg_expander/6, translation 
-     will not occur. This is posible whether goal
-     or qualifing module are variables.
+    "This predicate is an auxiliary translation tool, which is used by
+     the @pred{body_expander/6} predicate.  It remains exported as a
+     macro.  The predicate navigates through the @em{meta-argument
+     specification} of a goal. If a @em{goal, fact, or spec} argument
+     appears, user code is called in order to perform a translation.
+     If the user code fails to translate the involved argument, it
+     remains the same.  Builtins such as ','/2 or ';'/2 are treated as
+     meta-predicates defining @em{goal} meta-arguments.  When a
+     @em{goal} meta-argument is located, @pred{body_expander/6} will
+     be called in order to navigate through it. Notice that a
+     @em{goal} meta-argument may be unified with another goal defining
+     another meta-argument, so navigation is required.  If arguments
+     are not known to arg_expander/6, translation will not occur. This
+     is posible if the goal or the qualifing module are variables.
     ").
 
 :- pred arg_expander(GoalTrans, FactTrans, SpecTrans,
@@ -205,10 +200,10 @@ body_expander(GoalExp,FactExp,SpecExp,Module,Body,NewBody) :-
       var(ExpandedBody) ) #
     "Translates @var{Goal} to @var{ExpandedGoal} by applying
      user-defined translators (@var{GoalTrans}, 
-     @var{FactTrans} and @var{SpecTrans}) to each 
+     @var{FactTrans}, and @var{SpecTrans}) to each 
      meta-argument present at such goal.
      The module where the original goal appears must be unified with
-     @var{Module} argument.
+     the @var{Module} argument.
     ".
 
 :- export(arg_expander/6).
