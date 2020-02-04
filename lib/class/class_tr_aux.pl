@@ -30,7 +30,6 @@
 %% 
 %%------------------------------------------------------------------------
 
-:- use_module(engine(hiord_rt_old)). % TODO: remove to use hiord instead of hiord_old
 :- use_module(library(expansion_tools)).
 
 method_expansion(Body,Module,InstVar,Exp) :-
@@ -45,10 +44,10 @@ method_expansion(Body,Module,InstVar,Exp) :-
 %%
 %% EXPAND ONE GOAL
 %%
-%% goal_expansion(goal,expandedgoal,module,instanceID)
+%% goal_expansion(instanceID,goal,expandedgoal,module)
 %%------------------------------------------------------------------------
 
-goal_expansion(Goal,InstanceID,Exp,Module):-
+goal_expansion(InstanceID,Goal,Exp,Module):-
     goal_expansion_(Goal,Exp,Module,InstanceID).
 
 %% unknown goal
@@ -63,8 +62,7 @@ goal_expansion_(A_Module:Goal,Exp,Module,ID) :-
     atom(A_Module),
     A_Module = Module,
     !,
-%       goal_expansion(Goal,Exp,Module,ID).
-    goal_expansion(Goal,ID,Exp,Module).
+    goal_expansion(ID,Goal,Exp,Module).
 
 %% Goal is not related to this class
 
@@ -197,7 +195,7 @@ goal_expansion_(Goal,AtClass:NewGoal,Module,InstVar) :-
 %%
 %%------------------------------------------------------------------------
 
-fact_expansion(Fact,Inst,Exp,Module) :-
+fact_expansion(Inst,Fact,Exp,Module) :-
     fact_expansion_(Fact,Exp,Module,Inst).
 
 %% Fact is unknown
@@ -212,8 +210,7 @@ fact_expansion_(A_Module:Fact,Exp,Module,Inst) :-
     atom(A_Module),
     A_Module = Module,
     !,
-%       fact_expansion(Fact,Exp,Module,Inst),
-    fact_expansion(Fact,Inst,Exp,Module).
+    fact_expansion(Inst,Fact,Exp,Module).
 
 %% Fact is not related to current class.
 
@@ -255,7 +252,7 @@ fact_expansion_(inherited(Fact),inherited(Fact),Module,_) :-
 %%
 %%------------------------------------------------------------------------
 
-spec_expansion(Spec,Inst,Exp,Module) :-
+spec_expansion(Inst,Spec,Exp,Module) :-
     spec_expansion_(Spec,Exp,Module,Inst).
 
 %% spec is unknown
