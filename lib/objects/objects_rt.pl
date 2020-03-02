@@ -372,7 +372,7 @@ create_unique_id(ID) :-
 %       ( 'id$fromclass'(AnID,_) -> create_unique_id(ID,_) ; ID = AnID),
 %       true.
 %create_unique_id_aux(ID) :-
-%       eng_self(ThreadID),
+%       eng_goal_id(ThreadID),
 %       number_codes(ThreadID,TIDCodes),
 %       atom_codes(TID,TIDCodes),
 %       statistics(walltime, [W,_]),
