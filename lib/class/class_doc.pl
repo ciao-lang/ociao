@@ -404,7 +404,7 @@
      predicate has not been redefined at current class.
     ").
 
-:- pred inherited(Goal) : callable #
+:- pred inherited(Goal) : cgoal #
     "References a given @var{Goal} at the super class".
 
 inherited(_).
