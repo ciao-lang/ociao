@@ -71,9 +71,7 @@
 
     @comment{-------- EXAMPLES -------}
 
-@begin{verbatim}
-@includeverbatim{stack}
-@end{verbatim}
+@includecode{stack}
 
     If we load this code at the Ciao toplevel shell:
 
@@ -125,16 +123,12 @@
     and @em{virtual method}. Refer to the following sections for
     further explanation.
 
-@begin{verbatim}
-@includeverbatim{generic}
-@end{verbatim}
+@includecode{generic}
 
     And the following example, is an extension of previous class.
     This is performed by establishing an inheritance relationship:
 
-@begin{verbatim}
-@includeverbatim{specific}
-@end{verbatim}
+@includecode{specific}
 
     @bf{Additional examples} may be found on the 
     @em{examples/} directory.
